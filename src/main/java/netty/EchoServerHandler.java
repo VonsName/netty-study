@@ -18,8 +18,8 @@ public class EchoServerHandler extends ChannelHandlerAdapter {
 //        String message = (String) msg;
 //        System.out.println(msg);
 //        message += "$_";
-        ByteBuf buf = Unpooled.copiedBuffer(msg.toString().getBytes());
-        ctx.writeAndFlush(buf);
+//        ByteBuf buf = Unpooled.copiedBuffer(msg.toString().getBytes());
+        ctx.writeAndFlush(msg);
     }
 
     @Override

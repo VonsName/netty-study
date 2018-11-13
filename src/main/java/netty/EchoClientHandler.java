@@ -25,8 +25,8 @@ public class EchoClientHandler extends ChannelHandlerAdapter {
 //        }
         List<UserInfo> infoList = userInfos();
         infoList.forEach(item -> {
-            ByteBuf buf = Unpooled.copiedBuffer(item.toString().getBytes());
-            ctx.write(buf);
+//            ByteBuf buf = Unpooled.copiedBuffer(item.toString().getBytes());
+            ctx.write(item);
         });
         ctx.flush();
     }
@@ -36,6 +36,7 @@ public class EchoClientHandler extends ChannelHandlerAdapter {
         System.out.println(msg);
 //        ByteBuf buf = Unpooled.copiedBuffer((msg + "$_").getBytes());
 //        ctx.writeAndFlush(buf);
+        ctx.write(msg);
     }
 
     @Override

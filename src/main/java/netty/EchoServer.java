@@ -13,7 +13,11 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.FixedLengthFrameDecoder;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 
 /**
  * @author ： fjl
@@ -28,8 +32,8 @@ public class EchoServer {
         ServerBootstrap b = new ServerBootstrap();
         b.group(group, workGroup)
                 .channel(NioServerSocketChannel.class)
-                .option(ChannelOption.SO_BACKLOG, 88889)
-                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 3000)
+                .option(ChannelOption.SO_BACKLOG, 100)
+                .handler(new LoggingHandler(LogLevel.INFO))
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel sc) throws Exception {
@@ -39,8 +43,10 @@ public class EchoServer {
 //                        sc.pipeline().addLast(new FixedLengthFrameDecoder(20));
 //                        sc.pipeline().addLast(new DelimiterBasedFrameDecoder(1024, buf));
 //                        sc.pipeline().addLast(new StringDecoder());
-                        sc.pipeline().addLast("msgPack decoder",new MsgPackDecoder());
-                        sc.pipeline().addLast("msgPack encoder",new MsgPackEncoder());
+                        sc.pipeline().addLast("frameDecoder", new LengthFieldBasedFrameDecoder(65535, 0, 2, 0, 2));
+                        sc.pipeline().addLast("msgPack decoder", new MsgPackDecoder());
+                        sc.pipeline().addLast("frameEncoder", new LengthFieldPrepender(2));
+                        sc.pipeline().addLast("msgPack encoder", new MsgPackEncoder());
                         sc.pipeline().addLast(new EchoServerHandler());
                     }
                 });
