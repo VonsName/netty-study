@@ -6,14 +6,15 @@ package designer.decor;
  * 装饰对象
  * 持有被装饰对象
  */
-public class DecorTarget {
+public class DecorTarget extends AbstractDecorSource {
 
-    private DecorSource decorSource;
+    private AbstractDecorSource decorSource;
 
     public DecorTarget(DecorSource decorSource) {
         this.decorSource = decorSource;
     }
 
+    @Override
     public void decor() {
         System.out.println("before---decor---");
         decorSource.decor();
