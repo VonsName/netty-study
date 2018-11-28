@@ -1,5 +1,10 @@
 package com.example.demo;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * @author ： fjl
  * @date ： 2018/11/28/028 8:33
@@ -63,6 +68,39 @@ public class User {
 
     public static void main(String[] args) {
         System.out.println(User.say);
-        User user = new User();
+        User user1 = new User();
+        user1.setId(1);
+        user1.setNo(2);
+        user1.setPassword("12345");
+        User user2 = new User();
+        user2.setId(2);
+        user2.setNo(3);
+        user2.setPassword("56789");
+        User user3 = new User();
+        user2.setId(1);
+        user2.setNo(3);
+        user2.setPassword("56789");
+        List<User> userList=new ArrayList<>();
+        userList.add(user2);
+        userList.add(user1);
+        userList.add(user3);
+        userList.sort((t1, t2) -> Comparator.comparing(User::getId).reversed().compare(t1, t2));
+        System.out.println(userList);
+        Comparator<User> userComparator = Comparator.comparing(User::getId);
+        Comparator<User> comparator = Comparator.comparing(User::getNo).reversed();
+
+        Comparator<User> thenComparing = userComparator.thenComparing(comparator);
+        userList.sort(thenComparing);
+        System.out.println(userList);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", id=" + id +
+                ", no=" + no +
+                '}';
     }
 }
