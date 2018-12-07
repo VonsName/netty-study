@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
+import org.springframework.beans.BeansException;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -16,7 +19,9 @@ import java.util.Collections;
  * @date ： 2018/12/7/007 8:53
  */
 @Configuration
-public class CrossRegister {
+public class CrossRegister implements ApplicationContextAware {
+
+    private ApplicationContext applicationContext;
 
     @Bean
     public FilterRegistrationBean<Filter> crossFilter() {
@@ -35,5 +40,10 @@ public class CrossRegister {
         registrationBean.setFilter(new CorsFilter(source));
 
         return registrationBean;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }
