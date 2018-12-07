@@ -37,7 +37,9 @@ public class DemoApplicationTests {
 
     @Test
     public void testJpa3() {
-        simpleTeacherRepository.deleteById(1);
+        if (simpleTeacherRepository.existsById(1)) {
+            simpleTeacherRepository.deleteById(1);
+        }
     }
 
     @Test
@@ -51,7 +53,7 @@ public class DemoApplicationTests {
     }
 
     @Test
-    public void testJpa6(){
+    public void testJpa6() {
         System.out.println(simpleTeacherRepository.existsById(1));
     }
 }
