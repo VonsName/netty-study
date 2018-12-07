@@ -1,19 +1,30 @@
-package designer.usafe;
+package com.example.demo.controller;
+
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
+import javax.persistence.*;
 
 /**
  * @author ： fjl
- * @date ： 2018/11/16/016 8:38
+ * @date ： 2018/12/7/007 10:09
  */
-public class User {
+@Entity
+public class Teacher extends AbstractPersistable<Integer> {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Integer id;
+
     private String username;
     private String password;
 
+
+    @Override
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
@@ -36,8 +47,9 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
+        return "Teacher{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

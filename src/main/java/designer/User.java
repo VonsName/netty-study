@@ -1,7 +1,6 @@
-package com.example.demo;
+package designer;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -45,7 +44,7 @@ public class User {
         this.password = password;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -80,7 +79,7 @@ public class User {
         user2.setId(1);
         user2.setNo(3);
         user2.setPassword("56789");
-        List<User> userList=new ArrayList<>();
+        List<User> userList = new ArrayList<>();
         userList.add(user2);
         userList.add(user1);
         userList.add(user3);
