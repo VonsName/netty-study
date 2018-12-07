@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author ： fjl
  * @date ： 2018/12/6/006 9:08
- *
  */
 @Configuration
 @EnableWebMvc
@@ -21,7 +20,12 @@ public class CrossConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-
+        registry
+                .addMapping("/**")
+                .allowedOrigins("*")
+                .allowedHeaders("*")
+                .allowedMethods("POST", "GET", "DELETE", "PUT", "OPTIONS")
+                .allowCredentials(false).maxAge(3600);
     }
 
     @Override
@@ -32,7 +36,7 @@ public class CrossConfig implements WebMvcConfigurer {
                 return false;
             }
         }).addPathPatterns("/**")
-          .excludePathPatterns("/user");
+                .excludePathPatterns("/user");
 
     }
 }
