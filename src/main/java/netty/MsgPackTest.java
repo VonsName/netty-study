@@ -21,8 +21,6 @@ public class MsgPackTest {
         src.add("protobuf");
         byte[] write = msg.write(src);
         List<String> read = msg.read(write, Templates.tList(Templates.TString));
-        read.forEach(item->{
-            System.out.println(item);
-        });
+        read.forEach(System.out::println);
     }
 }
