@@ -28,6 +28,11 @@ public class User {
         System.out.println("constructor");
     }
 
+    public User(int id, Integer no) {
+        this.id = id;
+        this.no = no;
+    }
+
     public String getUsername() {
         return username;
     }
